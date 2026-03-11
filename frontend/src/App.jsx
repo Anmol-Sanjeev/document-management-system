@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import "./App.css"
 
+const API = "https://document-management-system-jyg5.onrender.com"
+
 function App() {
 
   const [documents, setDocuments] = useState([])
@@ -11,7 +13,7 @@ function App() {
   const [filter, setFilter] = useState("All")
 
   const fetchDocuments = async () => {
-    const res = await axios.get("http://localhost:5000/documents")
+    const res = await axios.get(`${API}/documents`)
     setDocuments(res.data)
   }
 
@@ -20,7 +22,7 @@ function App() {
   }, [])
 
   const addDocument = async () => {
-    await axios.post("http://localhost:5000/documents/add", {
+    await axios.post(`${API}/documents/add`, {
       title,
       description,
       status: "Draft"
@@ -32,12 +34,12 @@ function App() {
   }
 
   const deleteDocument = async (id) => {
-    await axios.delete(`http://localhost:5000/documents/${id}`)
+    await axios.delete(`${API}/documents/${id}`)
     fetchDocuments()
   }
 
   const updateStatus = async (id, status) => {
-    await axios.put(`http://localhost:5000/documents/${id}`, {
+    await axios.put(`${API}/documents/${id}`, {
       status: status
     })
     fetchDocuments()
