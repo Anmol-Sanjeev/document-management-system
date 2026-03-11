@@ -39,9 +39,7 @@ function App() {
   }
 
   const updateStatus = async (id, status) => {
-    await axios.put(`${API}/documents/${id}`, {
-      status: status
-    })
+    await axios.put(`${API}/documents/${id}`, { status })
     fetchDocuments()
   }
 
@@ -56,8 +54,6 @@ function App() {
 
     return matchesSearch && matchesFilter
   })
-
-  const statuses = ["Draft", "Review", "Approved", "Archived"]
 
   return (
     <div className="container">
@@ -123,66 +119,36 @@ function App() {
         <option value="Archived">Archived</option>
       </select>
 
-      <h2>Workflow Board</h2>
+      <h2>Documents</h2>
 
-      <div className="board">
+      {filteredDocuments.map(doc => (
 
-        {statuses.map(status => (
+        <div key={doc._id} className="card">
 
-          <div className="column" key={status}>
+          <h3>{doc.title}</h3>
+          <p>{doc.description}</p>
 
-            <h3>{status}</h3>
+          <p>Status:</p>
 
-            {filteredDocuments
-              .filter(doc => doc.status === status)
-              .map(doc => (
+          <select
+            value={doc.status}
+            onChange={(e)=>updateStatus(doc._id, e.target.value)}
+          >
+            <option>Draft</option>
+            <option>Review</option>
+            <option>Approved</option>
+            <option>Archived</option>
+          </select>
 
-                <div key={doc._id} className="card">
+          <br/>
 
-                  <h4>{doc.title}</h4>
-                  <p>{doc.description}</p>
+          <button onClick={()=>deleteDocument(doc._id)}>
+            Delete
+          </button>
 
-                  <div className="actions">
+        </div>
 
-                    {status !== "Draft" &&
-                      <button onClick={()=>updateStatus(doc._id,"Draft")}>
-                        Move to Draft
-                      </button>
-                    }
-
-                    {status !== "Review" &&
-                      <button onClick={()=>updateStatus(doc._id,"Review")}>
-                        Move to Review
-                      </button>
-                    }
-
-                    {status !== "Approved" &&
-                      <button onClick={()=>updateStatus(doc._id,"Approved")}>
-                        Approve
-                      </button>
-                    }
-
-                    {status !== "Archived" &&
-                      <button onClick={()=>updateStatus(doc._id,"Archived")}>
-                        Archive
-                      </button>
-                    }
-
-                    <button onClick={()=>deleteDocument(doc._id)}>
-                      Delete
-                    </button>
-
-                  </div>
-
-                </div>
-
-              ))}
-
-          </div>
-
-        ))}
-
-      </div>
+      ))}
 
     </div>
   )
