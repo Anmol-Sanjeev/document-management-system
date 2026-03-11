@@ -147,3 +147,45 @@ select{
   font-size:12px;
   padding:6px 8px;
 }
+
+.actions{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:6px;
+  color:white;
+  cursor:pointer;
+  font-size:13px;
+}
+
+/* Status colors */
+
+.draft{
+  background:#6b7280;
+}
+
+.review{
+  background:#f59e0b;
+}
+
+.approve{
+  background:#10b981;
+}
+
+.archive{
+  background:#6366f1;
+}
+
+.delete{
+  background:#ef4444;
+}
+
+.btn:hover{
+  opacity:0.9;
+}

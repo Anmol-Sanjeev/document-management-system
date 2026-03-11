@@ -128,23 +128,46 @@ function App() {
           <h3>{doc.title}</h3>
           <p>{doc.description}</p>
 
-          <p>Status:</p>
+          <p>Status: <b>{doc.status}</b></p>
 
-          <select
-            value={doc.status}
-            onChange={(e)=>updateStatus(doc._id, e.target.value)}
-          >
-            <option>Draft</option>
-            <option>Review</option>
-            <option>Approved</option>
-            <option>Archived</option>
-          </select>
+          <div className="actions">
 
-          <br/>
+            <button
+              className="btn draft"
+              onClick={()=>updateStatus(doc._id,"Draft")}
+            >
+              Draft
+            </button>
 
-          <button onClick={()=>deleteDocument(doc._id)}>
-            Delete
-          </button>
+            <button
+              className="btn review"
+              onClick={()=>updateStatus(doc._id,"Review")}
+            >
+              Review
+            </button>
+
+            <button
+              className="btn approve"
+              onClick={()=>updateStatus(doc._id,"Approved")}
+            >
+              Approve
+            </button>
+
+            <button
+              className="btn archive"
+              onClick={()=>updateStatus(doc._id,"Archived")}
+            >
+              Archive
+            </button>
+
+            <button
+              className="btn delete"
+              onClick={()=>deleteDocument(doc._id)}
+            >
+              Delete
+            </button>
+
+          </div>
 
         </div>
 
